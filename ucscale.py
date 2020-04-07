@@ -47,7 +47,7 @@ def dscale(mat, tol=_EPS):
     # in-place operations are safe if the iteration does not step over any
     # element more than once.
     sh_m, sh_n = np.shape(mat)  # Fails when the shape doesn't conform.
-    out_ws = np.abs(mat, dtype=float)  # Eement-wise absolute value (real).
+    out_ws = np.abs(mat, dtype=float)  # Element-wise absolute value (real).
     mask_nz = out_ws != 0.0   # Mask for non-zero entries in the input.
     # "Sign" matrix with unit-magnitude elements of the input where nonzero,
     # and zero where zero.
@@ -103,7 +103,7 @@ def dscale(mat, tol=_EPS):
     # Re-apply the signs. Use the "sign" matrix signs as the in-place operand
     # because its type is already the most-promoted one (and correct for the
     # output). Notice that out_ws is real and can update a complex array
-    # in-place. Therefore the array named signs at this stage does not merely
-    # contain the signs.
+    # in-place by multiplication. Therefore the array named "signs" at this
+    # stage contains not the signs but the final output matrix.
     signs *= out_ws
     return signs, diag_l, diag_r
